@@ -8,6 +8,12 @@ use App\Models\Jot;
 
 class JotController extends Controller
 {
+
+    public function sign_in(Request $request)
+    {
+        dd('login successful.', $request->all());
+    }
+
     public function home(Request $request)
     {
         $user = $request->user();

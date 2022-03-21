@@ -14,4 +14,5 @@ use App\Http\Controllers\JotController;
 */
 
 Route::get('/', [JotController::class, 'home']);
+Route::get('sign-in', [JotController::class, 'sign_in']);
 Route::post('/', [JotController::class, 'create']);
