@@ -23,21 +23,22 @@ class JotController extends Controller
             'Api-Token' => env('AUTHX_API_TOKEN'),
         ])->get("{$api_url}/apps/{$app_code}/users/{$user_code}");
 
-        dd($response);
+        
 
         if(!$response->successful()) {
-            return redirect('/')->with('error', 'Unable to complete sign on process at this time, kindly try again in a few seconds.');
+            $response_body = $response->object();
+            return redirect('/')->with('error', "AuthX Error: {$response_body->code} {$response_body->message}");
         }
 
-        $response_body = $response->json()->data->main_data->data;
+        $data = $response->object()->data->main_data->data;
 
         $params = [
-            'name' => $response_body->first_name.' '.$response_body->last_name,
+            'name' => $data->first_name.' '.$data->last_name,
             'password' => Hash::make(\Str::rand(111111, 999999)),
             'authx_token' => $user_code,
         ];
 
-        $user = User::firstOrCreate(['email' => $response_body->email], $params);
+        $user = User::firstOrCreate(['email' => $data->email], $params);
 
         Auth::loginUsingId($user->id);
 
