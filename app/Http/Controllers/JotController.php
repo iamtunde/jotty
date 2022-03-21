@@ -23,8 +23,11 @@ class JotController extends Controller
             'Api-Token' => env('AUTHX_API_TOKEN'),
         ])->get("{$api_url}/apps/{$app_code}/users/{$user_code}");
 
-        if(!$response->successful())
+        dd($response);
+
+        if(!$response->successful()) {
             return redirect('/')->with('error', 'Unable to complete sign on process at this time, kindly try again in a few seconds.');
+        }
 
         $response_body = $response->json()->data->main_data->data;
 
