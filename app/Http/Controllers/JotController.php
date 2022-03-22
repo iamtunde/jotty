@@ -48,6 +48,13 @@ class JotController extends Controller
         return redirect('/')->with('success', 'User successfully logged in.');
     }
 
+    public function log_out(Request $request)
+    {
+        Auth::logout();
+
+        return redirect('/');
+    }
+
     public function home(Request $request)
     {
         $user = $request->user();
