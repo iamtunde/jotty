@@ -26,7 +26,7 @@ class JotController extends Controller
             'client_secret' => $client_secret,
             'redirect_url' => URL('sign-in'),
             'code' => $user_code,
-        ])->object()->data;
+        ])->object();
         dd($response);
         $response = Http::withHeaders([
             'Api-Token' => env('AUTHX_API_TOKEN'),
