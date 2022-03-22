@@ -18,12 +18,19 @@ class JotController extends Controller
         $user_code = $request->code;
         $api_url = env('AUTHX_API_URL');
         $app_code = env('AUTHX_APPLICATION_CODE');
+        $client_id = env('AUTHX_CLIENT_ID');
+        $client_secret = env('AUTHX_CLIENT_SECRET');
 
+        $response = Http::post("{$api_url}/oauth/access/token", [
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
+            'redirect_url' => URL('sign-in'),
+            'code' => $user_code,
+        ])->object()->data;
+        dd($response);
         $response = Http::withHeaders([
             'Api-Token' => env('AUTHX_API_TOKEN'),
         ])->get("{$api_url}/apps/{$app_code}/users/{$user_code}");
-
-        
 
         if(!$response->successful()) {
             $response_body = $response->object();
