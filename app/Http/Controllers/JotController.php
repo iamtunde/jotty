@@ -41,7 +41,7 @@ class JotController extends Controller
             'authx_token' => $data->user->code,
         ];
 
-        $user = User::firstOrCreate(['email' => $data->user->data->email], $params);
+        $user = User::firstOrCreate(['email' => $data->user->identifier], $params);
 
         Auth::loginUsingId($user->id);
 
