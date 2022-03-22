@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 use App\Models\Jot;
 use App\Models\User;
@@ -36,7 +37,7 @@ class JotController extends Controller
 
         $params = [
             'name' => $data->user->data->first_name.' '.$data->user->data->last_name,
-            'password' => Hash::make(\Str::rand(111111, 999999)),
+            'password' => Hash::make(Str::random(10)),
             'authx_token' => $data->user->code,
         ];
 
