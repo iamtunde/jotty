@@ -17,7 +17,6 @@ class JotController extends Controller
     {
         $user_code = $request->code;
         $api_url = env('AUTHX_API_URL');
-        $app_code = env('AUTHX_APPLICATION_CODE');
         $client_id = env('AUTHX_CLIENT_ID');
         $client_secret = env('AUTHX_CLIENT_SECRET');
 
@@ -33,7 +32,7 @@ class JotController extends Controller
             return redirect('/')->with('error', "AuthX Error: {$response_body->code} {$response_body->message}");
         }
 
-        $data = $response->object()->data->main_data->data;
+        $data = $response->object()->data;
 
         $params = [
             'name' => $data->user->data->first_name.' '.$data->user->data->last_name,
