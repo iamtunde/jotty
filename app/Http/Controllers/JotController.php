@@ -26,11 +26,7 @@ class JotController extends Controller
             'client_secret' => $client_secret,
             'redirect_uri' => URL('sign-in'),
             'code' => $user_code,
-        ])->object()->data;
-        dd($response);
-        $response = Http::withHeaders([
-            'Api-Token' => env('AUTHX_API_TOKEN'),
-        ])->get("{$api_url}/apps/{$app_code}/users/{$user_code}");
+        ]);
 
         if(!$response->successful()) {
             $response_body = $response->object();
@@ -40,12 +36,12 @@ class JotController extends Controller
         $data = $response->object()->data->main_data->data;
 
         $params = [
-            'name' => $data->first_name.' '.$data->last_name,
+            'name' => $data->user->data->first_name.' '.$data->user->data->->last_name,
             'password' => Hash::make(\Str::rand(111111, 999999)),
-            'authx_token' => $user_code,
+            'authx_token' => $data->user->code,
         ];
 
-        $user = User::firstOrCreate(['email' => $data->email], $params);
+        $user = User::firstOrCreate(['email' => $data->user->data->email], $params);
 
         Auth::loginUsingId($user->id);
 
