@@ -24,7 +24,7 @@ class JotController extends Controller
         $response = Http::post("{$api_url}/oauth/access/token", [
             'client_id' => $client_id,
             'client_secret' => $client_secret,
-            'redirect_url' => URL('sign-in'),
+            'redirect_url' => 'https://jotty-app.herokuapp.com/sign-in',
             'code' => $user_code,
         ])->object();
         dd($response);
