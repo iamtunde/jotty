@@ -36,7 +36,7 @@ class JotController extends Controller
         $data = $response->object()->data->main_data->data;
 
         $params = [
-            'name' => $data->user->data->first_name.' '.$data->user->data->->last_name,
+            'name' => $data->user->data->first_name.' '.$data->user->data->last_name,
             'password' => Hash::make(\Str::rand(111111, 999999)),
             'authx_token' => $data->user->code,
         ];
