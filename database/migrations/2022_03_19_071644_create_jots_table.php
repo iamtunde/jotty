@@ -15,6 +15,7 @@ class CreateJotsTable extends Migration
     {
         Schema::create('jots', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->nullable();
             $table->string('title', 40);
             $table->longText('content')->nullable();
             $table->string('color', 30);

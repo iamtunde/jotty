@@ -11,5 +11,5 @@ class Jot extends Model
 
     protected $table = 'jots';
 
-    protected $fillable = ['title', 'content', 'color', 'status'];
+    protected $fillable = ['user_id', 'title', 'content', 'color', 'status'];
 }

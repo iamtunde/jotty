@@ -39,6 +39,7 @@
     <div id="modal1" class="modal">
         <form class="col s12" action="{{ url('/') }}" method="POST">
             @csrf
+            <input type="hidden" name="user_id" value="{{ \Auth::check() == true ? \Auth::user()->id : null }}">
             <div class="modal-content">
                 <div class="row">
                     <div class="input-field col s12">
